@@ -1,4 +1,4 @@
-std::vector<std::vector<int>> rotateImage(std::vector<std::vector<int>> a) {
+vector<vector<int>> rotateImage(vector<vector<int>> a) {
     for (int i = 0; i < a.size() / 2; i++)
     {
         for (int j = i ; j < ((a.size() - 1) - i); j++)

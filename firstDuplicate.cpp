@@ -1,6 +1,6 @@
-int firstDuplicate(std::vector<int> a) {
-    std::set<int> old;
-    for (std::vector<int>::iterator iter = a.begin();
+int firstDuplicate(vector<int> a) {
+    unordered_set<int> old;
+    for (auto iter = a.begin();
         iter != a.end();
         iter++)
     {
