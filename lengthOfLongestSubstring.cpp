@@ -21,7 +21,7 @@ public:
                     break;
                 }
             }
-            if (s.size() == j)
+            if (j == s.size())
             {
                 max = j - i;
                 break;
