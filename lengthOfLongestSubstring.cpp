@@ -2,12 +2,10 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         int max = 0;
-        for (int i = 0; i < s.size() - max; ++i)
+        unordered_set<char> m;
+        for (int i = 0, j = 0; i < s.size() - max; ++i)
         {
-            int j;
-            unordered_set<char> m;
-            m.insert(s.at(i));
-            for (j = i + 1; j < s.size(); ++j)
+            for (; j < s.size(); ++j)
             {
                 if (m.count(s.at(j)) == 0)
                 {
@@ -19,10 +17,11 @@ public:
                     {
                         max = j - i;
                     }
+                    m.erase(s.at(i));
                     break;
                 }
             }
-            if (j == s.size())
+            if (s.size() == j)
             {
                 max = j - i;
                 break;
