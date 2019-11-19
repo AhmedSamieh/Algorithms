@@ -19,13 +19,15 @@ class Solution {
 public:
     Node* copyRandomList(Node* head) {
         unordered_map<Node*, Node*> m; // key=oldPointer, val=newPointer
+        ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
         m.insert(make_pair<Node*, Node*>(NULL, NULL));
         for (Node* scanner = head; scanner != NULL; scanner = scanner->next)
         {
             Node* node = new Node();
             m.insert(make_pair(scanner, node));
         }
-        for (auto i : m)
+        for (auto const &i : m)
         {
             if (i.first != NULL)
             {
