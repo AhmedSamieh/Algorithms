@@ -69,57 +69,66 @@ public:
     }
 };
 class Solution {
+    string hostname;
 #ifdef USE_CPP20
-    shared_mutex          guard;
+    shared_mutex guard;
 #else
-    mutex          guard;
+    mutex guard;
 #endif
     unordered_set<string> visited;
-    void thread_func(HtmlParser &htmlParser, string &input_url, string &hostname) {
-        if (input_url.substr(7, hostname.size()) == hostname) {
+    bool is_same_hostname(string &url) {
+        for (size_t i = 0; i < hostname.size(); ++i) {
+            if (url[i + 7] != hostname[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    void thread_func(HtmlParser &htmlParser, string &input_url) {
+        auto urls = htmlParser.getUrls(input_url);
+        vector<thread> workers;
+        workers.reserve(urls.size());
+        for (auto &url : urls) {
+            if (is_same_hostname(url)) {
 #ifdef USE_CPP20
-            guard.lock_shared();
+                guard.lock_shared();
 #else
-            guard.lock();
+                guard.lock();
 #endif
-            if (visited.find(input_url) != visited.end())
-            {
+                if (visited.find(url) != visited.end()) {
+#ifdef USE_CPP20
+                    guard.unlock_shared();
+#else
+                    guard.unlock();
+#endif
+                    continue;
+                }
 #ifdef USE_CPP20
                 guard.unlock_shared();
-#else
+                guard.lock();
+#endif
+                visited.emplace(url);
                 guard.unlock();
-#endif
-                return;
+                workers.emplace_back(&Solution::thread_func, this, ref(htmlParser), ref(url)); // create thread
             }
-#ifdef USE_CPP20
-            guard.unlock_shared();
-            guard.lock();
-#endif
-            visited.insert(input_url);
-            guard.unlock();
-
-            auto urls = htmlParser.getUrls(input_url);
-            vector<thread> workers;
-            for (auto &url : urls) {
-                workers.push_back(thread(&Solution::thread_func, this, ref(htmlParser), ref(url), ref(hostname)));
-            }
-            for (auto &worker : workers)
-            {
-                worker.join();
-            }
+        }
+        for (auto &worker : workers) {
+            worker.join();
         }
     }
 public:
-    vector<string> crawl(string startUrl, HtmlParser& htmlParser) {
+    vector<string> crawl(string startUrl, HtmlParser htmlParser) {
         vector<string> ret;
-        size_t hostname_end = startUrl.find('/', 7);
+        size_t hostname_end = startUrl.find('/', 7); // start after 'http://'
         if (hostname_end == string::npos) {
             hostname_end = startUrl.size();
         }
-        string hostname = startUrl.substr(7, hostname_end - 7);
-        thread_func(htmlParser, startUrl, hostname);
+        hostname = startUrl.substr(7, hostname_end - 7);
+        visited.emplace(startUrl);
+        thread_func(htmlParser, startUrl);
+        ret.reserve(visited.size());
         for (auto &url : visited) {
-            ret.push_back(url);
+            ret.emplace_back(url);
         }
         return ret;
     }
