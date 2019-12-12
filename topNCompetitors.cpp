@@ -16,7 +16,7 @@ public:
         multimap<int, int, greater<int>> freq_index; // freq, index
         for (int i = 0; i < competitors.size(); ++i)
         {
-            freq_index.insert(make_pair(freq[i], i));
+            freq_index.emplace(freq[i], i);
         }
         vector<string> result;
         result.reserve(N);

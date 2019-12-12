@@ -48,7 +48,7 @@ public:
     {
         for (size_t i = 0; i < urls.size(); ++i)
         {
-            url_index.insert(make_pair(urls[i], i));
+            url_index.emplace(urls[i], i);
         }
         links.resize(urls.size() + 1);
         for (size_t i = 0; i < input_graph.size(); ++i)

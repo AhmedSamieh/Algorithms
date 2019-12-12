@@ -8,7 +8,7 @@ char firstNotRepeatingCharacter(string s) {
             repeated.insert(s[i]);
         }
         else if (repeated.find(s[i]) == repeated.end()) {
-            first_time.insert(make_pair(s[i], i));
+            first_time.emplace(s[i], i);
         }
     }
     for (auto iter = first_time.begin();

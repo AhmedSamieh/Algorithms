@@ -4,7 +4,7 @@ public:
         unordered_map<int, int> number_pos;
         for (int i = 0 ; i < B.size(); ++i)
         {
-            number_pos.insert(make_pair(B[i], i));
+            number_pos.emplace(B[i], i);
         }
         vector<int> ret;
         for (auto i : A)

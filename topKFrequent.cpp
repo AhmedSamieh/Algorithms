@@ -9,7 +9,7 @@ public:
         multimap<int, int, greater<int>> freq_num; // freq, num
         for (auto i : num_freq)
         {
-            freq_num.insert(make_pair(i.second, i.first));
+            freq_num.emplace(i.second, i.first);
         }
         vector<int> res(k);
         auto iter = freq_num.begin();

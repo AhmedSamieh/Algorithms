@@ -16,14 +16,14 @@ public:
                             board[i][j] == board[i][j - 1] &&
                             board[i][j] == board[i][j + 1])
                         {
-                            s.push(make_pair(make_pair(i, j - 1), make_pair(i, j + 1)));
+                            s.emplace(make_pair(i, j - 1), make_pair(i, j + 1));
                         }
                         if (i - 1 >= 0 &&
                             i + 1 < board.size() &&
                             board[i][j] == board[i - 1][j] &&
                             board[i][j] == board[i + 1][j])
                         {
-                            s.push(make_pair(make_pair(i - 1, j), make_pair(i + 1, j)));
+                            s.emplace(make_pair(i - 1, j), make_pair(i + 1, j));
                         }
                     }
                 }

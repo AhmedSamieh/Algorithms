@@ -16,8 +16,7 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
-        if (NULL == node)
-        {
+        if (NULL == node) {
             return NULL;
         }
         unordered_map<Node*, Node*> m;
@@ -29,7 +28,7 @@ public:
             if (m.find(n) == m.end()) {
                 Node* cloned_node = new Node();
                 cloned_node->val = n->val;
-                m.insert(make_pair(n, cloned_node));
+                m.emplace(n, cloned_node);
                 for (auto &neighbor : n->neighbors) {
                     if (m.find(neighbor) == m.end()) {
                         q.push(neighbor);
@@ -37,10 +36,8 @@ public:
                 }
             }
         }
-        for (auto &n : m)
-        {
-            for (auto &neighbor : n.first->neighbors)
-            {
+        for (auto &n : m) {
+            for (auto &neighbor : n.first->neighbors) {
                 n.second->neighbors.push_back(m[neighbor]);
             }
         }

@@ -4,7 +4,7 @@ public:
         unordered_map<char, int> char_pos; // char, pos
         for (int i = 0; i < keyboard.size(); ++i)
         {
-            char_pos.insert(make_pair(keyboard[i], i));
+            char_pos.emplace(keyboard[i], i);
         }
         int distance = 0;
         int prev_pos = 0;

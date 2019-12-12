@@ -7,13 +7,7 @@ public:
     }
     
     void set(string key, string value, int timestamp) {
-        auto x = storage.find(key);
-        if (x == storage.end())
-        {
-            map<int, string, greater<int>> m;
-            x = storage.insert(make_pair(key, m));
-        }
-        x->second.insert(make_pair(timestamp, value));
+        storage[key].emplace(timestamp, value);
     }
     
     string get(string key, int timestamp) {

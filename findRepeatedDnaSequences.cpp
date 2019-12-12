@@ -40,11 +40,11 @@ public:
             }
             if ((iter = sequences_repeatation.find(sequence)) == sequences_repeatation.end())
             {
-                sequences_repeatation.insert(make_pair(sequence, 1));
+                sequences_repeatation.emplace(sequence, 1);
             }
             else if (iter->second == 1)
             {
-                return_vector.push_back(s.substr(i, sequence_length));
+                return_vector.emplace_back(s.substr(i, sequence_length));
                 iter->second++;
             }
         }

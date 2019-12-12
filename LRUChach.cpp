@@ -32,7 +32,7 @@ public:
                 cache.erase(order.front());
                 order.pop_front();
             }
-            cache.insert(make_pair(key, make_pair(value, order.insert(order.end(), key))));
+            cache.emplace(key, make_pair(value, order.insert(order.end(), key)));
         }
         else
         {

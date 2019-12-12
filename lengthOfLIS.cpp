@@ -8,7 +8,7 @@ public:
         {
             vector<int> LIS(n, 1);
             multimap<int, int, greater<int>> lis_val;
-            lis_val.insert(make_pair(1, nums[0]));
+            lis_val.emplace(1, nums[0]);
             for (int i = 1; i < n; ++i)
             {
                 int rest = n - i;
@@ -17,7 +17,7 @@ public:
                 {
                     if (nums[i] > iter->second)
                     {
-                        lis_val.insert(make_pair(iter->first + 1, nums[i]));
+                        lis_val.emplace(iter->first + 1, nums[i]);
                         break;
                     }
                     else if ((iter->first + rest) < lis_val.begin()->first)
@@ -28,7 +28,7 @@ public:
                 }
                 if (iter == lis_val.end() && rest >= lis_val.begin()->first)
                 {
-                    lis_val.insert(make_pair(1, nums[i]));
+                    lis_val.emplace(1, nums[i]);
                 }
             }
             return lis_val.begin()->first;

@@ -4,7 +4,7 @@ bool isCryptSolution(vector<string> crypt, vector<vector<char>> solution) {
     unordered_map<char, char> solution_map;
     for (int i = 0; i < solution.size(); i++)
     {
-        solution_map.insert(make_pair(solution[i][0], solution[i][1]));
+        solution_map.emplace(solution[i][0], solution[i][1]);
     }
     for (int i = 0; i < crypt[0].size(); i++)
     {

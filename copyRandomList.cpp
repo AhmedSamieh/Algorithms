@@ -21,11 +21,11 @@ public:
         unordered_map<Node*, Node*> m; // key=oldPointer, val=newPointer
         ios_base::sync_with_stdio(false);
         cin.tie(nullptr);
-        m.insert(make_pair<Node*, Node*>(NULL, NULL));
+        m.emplace(NULL, NULL);
         for (Node* scanner = head; scanner != NULL; scanner = scanner->next)
         {
             Node* node = new Node();
-            m.insert(make_pair(scanner, node));
+            m.emplace(scanner, node);
         }
         for (auto const &i : m)
         {

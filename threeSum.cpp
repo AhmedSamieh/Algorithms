@@ -27,7 +27,7 @@ public:
                         }
                         if (!found)
                         {
-                            mm.insert(make_pair(large, small));
+                            mm.emplace(large, small);
                             ret.emplace_back(vector({nums[i], nums[j], nums[k]}));
                         }
                     }
@@ -67,7 +67,7 @@ public:
                         }
                         if (!found)
                         {
-                            mm.insert(make_pair(large, small));
+                            mm.emplace(large, small);
                             ret.emplace_back(vector({i->first, j->first, x->first}));
                         }
                     }
@@ -107,7 +107,7 @@ public:
         {
             for (auto &small_iter : large_iter.second)
             {
-                ret.emplace_back(vector({large_iter.first, small_iter, -(large_iter.first + small_iter)}));
+                ret.emplace_back({large_iter.first, small_iter, -(large_iter.first + small_iter)});
             }
         }
 #endif

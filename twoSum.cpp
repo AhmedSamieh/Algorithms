@@ -5,7 +5,7 @@ public:
         unordered_multimap<int, int> m;
         for (int i = 0; i < nums.size(); ++i)
         {
-            m.insert(make_pair(nums[i], i));
+            m.emplace(nums[i], i);
         }
         for (auto n1 = m.begin(); n1 != m.end(); ++n1)
         {
