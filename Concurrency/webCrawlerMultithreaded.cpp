@@ -3,7 +3,7 @@
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
-#ifdef USE_CPP20
+#ifdef USE_CPP17
 #include <shared_mutex>
 #endif
 #include <mutex>
@@ -70,13 +70,14 @@ public:
 };
 class Solution {
     string hostname;
-#ifdef USE_CPP20
+#ifdef USE_CPP17
     shared_mutex guard;
 #else
     mutex guard;
 #endif
     unordered_set<string> visited;
     bool is_same_hostname(string &url) {
+        if (url.size() < (hostname.size() + 7)) return false;
         for (size_t i = 0; i < hostname.size(); ++i) {
             if (url[i + 7] != hostname[i]) {
                 return false;
@@ -90,20 +91,20 @@ class Solution {
         workers.reserve(urls.size());
         for (auto &url : urls) {
             if (is_same_hostname(url)) {
-#ifdef USE_CPP20
+#ifdef USE_CPP17
                 guard.lock_shared();
 #else
                 guard.lock();
 #endif
                 if (visited.find(url) != visited.end()) {
-#ifdef USE_CPP20
+#ifdef USE_CPP17
                     guard.unlock_shared();
 #else
                     guard.unlock();
 #endif
                     continue;
                 }
-#ifdef USE_CPP20
+#ifdef USE_CPP17
                 guard.unlock_shared();
                 guard.lock();
 #endif
