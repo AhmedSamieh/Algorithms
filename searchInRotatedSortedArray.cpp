@@ -1,21 +1,21 @@
 class Solution {
     int find(vector<int>& nums, int start, int end, int target) {
         if (start == end) return (nums[start] == target) ? start : -1;
-        int pevot = start + ((end - start) >> 1);
-        if (nums[start] <= nums[pevot]) {
-            if (nums[start] <= target && target <= nums[pevot]) {
-                return find(nums, start, pevot, target);
+        int pivot = (start + end) >> 1;
+        if (nums[start] <= nums[pivot]) {
+            if (nums[start] <= target && target <= nums[pivot]) {
+                return find(nums, start, pivot, target);
             }
             else {
-                return find(nums, pevot + 1, end, target);
+                return find(nums, pivot + 1, end, target);
             }
         }
         else {
-            if (nums[pevot] < target && target <= nums[end]) {
-                return find(nums, pevot + 1, end, target);
+            if (nums[pivot] < target && target <= nums[end]) {
+                return find(nums, pivot + 1, end, target);
             }
             else {
-                return find(nums, start, pevot, target);
+                return find(nums, start, peiot, target);
             }
         }
     }

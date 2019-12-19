@@ -1,4 +1,4 @@
-class Solution {
+/*class Solution {
 public:
     bool isPalindrome(string s) {
         const char alphabet[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
@@ -21,6 +21,34 @@ public:
             {
                 return false;
             }
+        }
+        return true;
+    }
+};*/
+class Solution {
+    bool isAlphaNum(char c) {
+        return ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'));
+    }
+public:
+    bool isPalindrome(string s) {
+        int i = 0;
+        int j = s.size() - 1;
+        while (i < j) {
+            char si = tolower(s[i]);
+            if (!isAlphaNum(si)) {
+                ++i;
+                continue;
+            }
+            char sj = tolower(s[j]);
+            if (!isAlphaNum(sj)) {
+                --j;
+                continue;
+            }
+            if (si != sj) {
+                return false;
+            }
+            ++i,
+            --j;
         }
         return true;
     }

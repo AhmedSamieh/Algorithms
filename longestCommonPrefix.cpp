@@ -11,14 +11,14 @@ public:
                 int j;
                 for (j = 1; j < strs.size(); ++j)
                 {
-                    if (strs[0][i] != strs[j][i])
+                    if (strs[j].size() < i || strs[0][i] != strs[j][i])
                     {
                         return s;
                     }
                 }
                 if (j == strs.size())
                 {
-                    s += strs[0][i];
+                    s.push_back(strs[0][i]);
                 }
             }
         }
