@@ -1,4 +1,9 @@
 use emplace_back instead of push_back
 put 
-        ios_base::sync_with_stdio(false);
-        cin.tie(nullptr);
+outside the class
+
+static const auto fast=[](){ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);return nullptr;}();
+
+ios_base::sync_with_stdio(false);
+cin.tie(nullptr);
+cout.tie(nullptr);

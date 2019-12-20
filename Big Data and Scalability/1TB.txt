@@ -1,0 +1,55 @@
+Find out median of an unsorted array stored in file size of 1 TB.
+Limitation of 1 GB system memory(RAM) & processing should happen on single node only.
+
+Edit 01:
+This file would consists of only integers & range would be anything from (0 -> 2^31). The data is randomly distributed.
+
+Edit 02 :
+The intent of this question is more on the constraint that , you can not load complete data-set into main memory & calculate median.
+
+-----
+
+- sorting the file on disk will take forever
+- sorting the file on RAM requires 1TB RAM
+> divide and conquer, make sub-arrays out of the file, sort and restore to file
+> 1T can make 1000 sub-array that can fit into ram, and use any sorting algorithm that requires O(1) extra space but takes O(N^2) time
+> mergesort takes O(N log N) time, but requires O(N) space, so batch size will be (500 MB), (2000 batches)
+> I assume few k bytes required by application stack for recursion is available log2(500,000,000/4), if not we can change numbers by reducing batch size and calculate the number of batches
+
+int buffer[BATCH_SIZE];
+int temp[BATCH_SIZE];
+
+for (int i = 0; i < NUM_OF_BATCHES; ++i) {
+    load_batch(i * BATCH_SIZE, BATCH_SIZE, buffer);
+    mergesort(buffer, BATCH_SIZE, temp);
+    store_batch(i * BATCH_SIZE, BATCH_SIZE, buffer);
+}
+
+> adopt the same concept of https://leetcode.com/problems/median-of-two-sorted-arrays/
+> but for N sorted array instead
+
+> again, divide and conquer, divide every batch into micro-batches of 500K, every batch has 1000 micro-batch
+
+> it will take N/2 time
+
+> take the first micro-batch from every batch 2000 * 500K, to fit in RAM
+> virtual merge the sorted array (just track the pointers for the next element without assigning it to any destination array)
+> if micro-batch finished get the next micro-batch
+> when current element pointer is 1T/2, this is the median if the total size was odd, or average of this element and the next element if even
+
+
+another way using pivots
+
+int pivot[NUM_OF_BATCHES];
+
+int before_pivot[NUM_OF_BATCHES];
+int after_pivot[NUM_OF_BATCHES];
+int at_pivot[NUM_OF_BATCHES];
+
+while (any_before_greater_than_at_pivots() || any_after_less_than_at_pivots()) {
+  move_pivots_accordingly();
+}
+
+get_median_of_at_pivots:
+sort at_pivot
+return (at_pivot[NUM_OF_BATCHES/2 - 1] + at_pivot[NUM_OF_BATCHES/2]) / 2
