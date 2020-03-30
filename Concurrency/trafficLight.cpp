@@ -1,6 +1,6 @@
 class TrafficLight {
-    int                active_road;
-    mutex              active_road_mutex;
+    int   active_road;
+    mutex mtx;
 public:
     TrafficLight() : active_road(1) {
     }
@@ -12,12 +12,12 @@ public:
         function<void()> turnGreen,  // Use turnGreen() to turn light to green on current road
         function<void()> crossCar    // Use crossCar() to make car cross the intersection
     ) {
-        unique_lock<mutex> guard(active_road_mutex);
-        if (active_road != roadId)
-        {
+        mtx.lock();
+        if (active_road != roadId) {
             turnGreen();
             active_road = roadId;
         }
         crossCar();
+        mtx.unlock();
     }
 };
