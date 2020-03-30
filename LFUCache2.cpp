@@ -8,11 +8,11 @@ class LFUCache {
         Node() : _key(0), _val(0), _freq(1) {}
         Node(int key, int val) : _key(key), _val(val), _freq(1) {}
         Node(Node& node) : _key(node._key), _val(node._val), _freq(node._freq) {}
-        int get_freq() {return _freq;}
+        int get_freq() const {return _freq;}
         void inc_freq() {++_freq;}
         void set_val(int val) {_val = val;}
-        int get_val() {return _val;}
-        int get_key() {return _key;}
+        int get_val() const {return _val;}
+        int get_key() const {return _key;}
     };
     int cache_capacity;
     int min_freq;
