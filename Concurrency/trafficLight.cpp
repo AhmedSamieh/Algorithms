@@ -1,8 +1,10 @@
-class TrafficLight {
+class TrafficLight
+{
     int   active_road;
     mutex mtx;
 public:
-    TrafficLight() : active_road(1) {
+    TrafficLight() : active_road(1)
+    {
     }
 
     void carArrived(
@@ -11,12 +13,15 @@ public:
         int direction,               // Direction of the car
         function<void()> turnGreen,  // Use turnGreen() to turn light to green on current road
         function<void()> crossCar    // Use crossCar() to make car cross the intersection
-    ) {
+    )
+    {
         mtx.lock();
+
         if (active_road != roadId) {
             turnGreen();
             active_road = roadId;
         }
+
         crossCar();
         mtx.unlock();
     }

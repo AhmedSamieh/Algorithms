@@ -1,28 +1,34 @@
-class Trie {
+class Trie
+{
     set<string> s;
 public:
     /** Initialize your data structure here. */
-    Trie() {
-        
+    Trie()
+    {
+
     }
-    
+
     /** Inserts a word into the trie. */
-    void insert(string word) {
+    void insert(string word)
+    {
         s.insert(word);
     }
-    
+
     /** Returns if the word is in the trie. */
-    bool search(string word) {
+    bool search(string word)
+    {
         return s.find(word) != s.end();
     }
-    
+
     /** Returns if there is any word in the trie that starts with the given prefix. */
-    bool startsWith(string prefix) {
+    bool startsWith(string prefix)
+    {
         auto iter = s.lower_bound(prefix);
-        if (iter == s.end() || iter->rfind(prefix, 0) != 0)
-        {
+
+        if (iter == s.end() || iter->rfind(prefix, 0) != 0) {
             return false;
         }
+
         return true;
     }
 };

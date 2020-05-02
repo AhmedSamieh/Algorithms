@@ -50,25 +50,30 @@ public:
     }
 };*/
 // 4 ms solution
-class Solution {
+class Solution
+{
 public:
-    vector<string> reorderLogFiles(vector<string>& logs) {
+    vector<string> reorderLogFiles(vector<string> &logs)
+    {
         vector<string> ret(logs.size());
         map<string, size_t> letters_index;
         size_t next_letters_pos = 0;
         size_t next_digit_pos = logs.size() - 1;
+
         for (int i = logs.size() - 1; i >= 0; --i) {
             auto pos = logs[i].find(' ') + 1;
+
             if (isdigit(logs[i][pos])) {
                 ret[next_digit_pos--] = logs[i];
-            }
-            else {
+            } else {
                 letters_index[string(logs[i].c_str() + pos) + logs[i].substr(0, pos - 1)] = i;
             }
         }
+
         for (auto &i : letters_index) {
             ret[next_letters_pos++] = logs[i.second];
         }
+
         return ret;
     }
 };

@@ -12,12 +12,10 @@ public:
     int get(int key)
     {
         auto iter = cache.find(key);
-        if (iter == cache.end())
-        {
+
+        if (iter == cache.end()) {
             return -1;
-        }
-        else
-        {
+        } else {
             order.splice(order.end(), order, iter->second);
             return iter->second->second;
         }
@@ -25,17 +23,15 @@ public:
     void put(int key, int value)
     {
         auto iter = cache.find(key);
-        if (iter == cache.end())
-        {
-            if (cache.size() == cache_capacity)
-            {
+
+        if (iter == cache.end()) {
+            if (cache.size() == cache_capacity) {
                 cache.erase(order.front().first);
                 order.pop_front();
             }
+
             cache.emplace(key, order.insert(order.end(), make_pair(key, value)));
-        }
-        else
-        {
+        } else {
             iter->second->second = value;
             order.splice(order.end(), order, iter->second);
         }

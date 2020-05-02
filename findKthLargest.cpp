@@ -1,6 +1,8 @@
-class Solution {
+class Solution
+{
 public:
-    int findKthLargest(vector<int>& nums, int k) {
+    int findKthLargest(vector<int> &nums, int k)
+    {
         /*multiset<int> s(nums.begin(), nums.end());
         if (nums.size() > k)
         {

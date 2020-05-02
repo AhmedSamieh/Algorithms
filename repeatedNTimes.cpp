@@ -1,18 +1,18 @@
-class Solution {
+class Solution
+{
 public:
-    int repeatedNTimes(vector<int>& A) {
+    int repeatedNTimes(vector<int> &A)
+    {
         unordered_set<int> s;
-        for (auto &i : A)
-        {
-            if (s.find(i) == s.end())
-            {
+
+        for (auto &i : A) {
+            if (s.find(i) == s.end()) {
                 s.insert(i);
-            }
-            else
-            {
+            } else {
                 return i;
             }
         }
+
         /*sort(A.begin(), A.end());
         for (int i = 1; i < A.size(); ++i)
         {

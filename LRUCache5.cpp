@@ -4,31 +4,37 @@
 
 using namespace std;
 
-class LRUCache {
+class LRUCache
+{
     size_t _capacity;
     list<pair<int, int>> _list; // key, value
     unordered_map<int, list<pair<int, int>>::iterator> _key_list;
 public:
     LRUCache(size_t capacity) : _capacity(capacity) {}
-    int get(int key) {
+    int get(int key)
+    {
         //cout << "get " << key << endl;
         auto iter = _key_list.find(key);
+
         if (iter != _key_list.end()) {
             _list.splice(_list.begin(), _list, iter->second);
             return iter->second->second;
         }
+
         return -1;
     }
-    void put(int key, int value) {
+    void put(int key, int value)
+    {
         //cout << "set " << key << " : " << val << endl;
         auto iter = _key_list.find(key);
+
         if (iter != _key_list.end()) {
             iter->second->second = value;
             _list.splice(_list.begin(), _list, iter->second);
-        }
-        else {
+        } else {
             _list.emplace_front(key, value);
             _key_list.emplace(key, _list.begin());
+
             if (_list.size() > _capacity) {
                 _key_list.erase(_list.back().first);
                 _list.pop_back();
@@ -37,7 +43,8 @@ public:
     }
 };
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     LRUCache lru(2);
     lru.put(1, 1);
     cout << lru.get(1) << endl;

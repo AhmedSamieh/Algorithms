@@ -30,36 +30,35 @@ public:
         return (n > 0)  ? val : (val != 0) ? 1/val : 0;
     }
 };*/
-class Solution {
+class Solution
+{
 public:
-    double myPow(double x, int n) {
+    double myPow(double x, int n)
+    {
         vector<double> dp(32, 0);
         double val = 1;
         long int p = abs(static_cast<long int>(n));
-        if (n == 0)
-        {
+
+        if (n == 0) {
             val = 1;
-        }
-        else if (x == 1 || x == 0 || n == 1)
-        {
+        } else if (x == 1 || x == 0 || n == 1) {
             val = x;
-        }
-        else
-        {
+        } else {
             dp[0] = x;
-            if (p & 1)
-            {
+
+            if (p & 1) {
                 val = x;
             }
-            for (int i = 1; (static_cast<long int>(1) << i) <= p ; ++i)
-            {
+
+            for (int i = 1; (static_cast<long int>(1) << i) <= p ; ++i) {
                 dp[i] = dp[i - 1] * dp[i - 1];
-                if (p & (1 << i))
-                {
+
+                if (p & (1 << i)) {
                     val *= dp[i];
                 }
             }
         }
-        return (n > 0)  ? val : (val != 0) ? 1/val : 0;
+
+        return (n > 0)  ? val : (val != 0) ? 1 / val : 0;
     }
 };

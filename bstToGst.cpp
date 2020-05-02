@@ -36,27 +36,29 @@ public:
         return root;
     }
 };*/
-class Solution {
+class Solution
+{
     int sum;
-    void updateBST(TreeNode* node)
+    void updateBST(TreeNode *node)
     {
-        if (NULL != node->right)
-        {
+        if (NULL != node->right) {
             updateBST(node->right);
         }
+
         sum = (node->val += sum);
-        if (NULL != node->left)
-        {
+
+        if (NULL != node->left) {
             updateBST(node->left);
         }
     }
 public:
-    TreeNode* bstToGst(TreeNode* root) {
-        if (NULL != root)
-        {
+    TreeNode *bstToGst(TreeNode *root)
+    {
+        if (NULL != root) {
             sum = 0;
             updateBST(root);
         }
+
         return root;
     }
 };

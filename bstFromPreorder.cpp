@@ -7,38 +7,33 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
-    void bstInsert(TreeNode* head, TreeNode* node) {
-        if (node->val > head->val)
-        {
-            if (NULL == head->right)
-            {
+class Solution
+{
+    void bstInsert(TreeNode *head, TreeNode *node)
+    {
+        if (node->val > head->val) {
+            if (NULL == head->right) {
                 head->right = node;
-            }
-            else
-            {
+            } else {
                 bstInsert(head->right, node);
             }
-        }
-        else
-        {
-            if (NULL == head->left)
-            {
+        } else {
+            if (NULL == head->left) {
                 head->left = node;
-            }
-            else
-            {
+            } else {
                 bstInsert(head->left, node);
             }
         }
     }
 public:
-    TreeNode* bstFromPreorder(vector<int>& preorder) {
-        TreeNode* head = new TreeNode(preorder[0]);
-        for (int i = 1; i < preorder.size(); ++i)
-        {
+    TreeNode *bstFromPreorder(vector<int> &preorder)
+    {
+        TreeNode *head = new TreeNode(preorder[0]);
+
+        for (int i = 1; i < preorder.size(); ++i) {
             bstInsert(head, new TreeNode(preorder[i]));
         }
+
         return head;
     }
 };

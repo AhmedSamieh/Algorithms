@@ -15,24 +15,26 @@ public:
         : val(_val), left(_left), right(_right), next(_next) {}
 };
 */
-class Solution {
-    void connect(Node* l, Node* r) {
-        if (NULL != l)
-        {
+class Solution
+{
+    void connect(Node *l, Node *r)
+    {
+        if (NULL != l) {
             l->next = r;
             connect(l->left, l->right);
-            if (NULL != r)
-            {
+
+            if (NULL != r) {
                 connect(l->right, r->left);
             }
         }
-        if (NULL != r)
-        {
+
+        if (NULL != r) {
             connect(r->left, r->right);
         }
     }
 public:
-    Node* connect(Node* root) {
+    Node *connect(Node *root)
+    {
         connect(root, NULL);
         return root;
     }

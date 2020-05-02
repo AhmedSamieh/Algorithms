@@ -23,40 +23,41 @@ public:
         return dp[text1.size()][text2.size()];
     }
 };*/
-class Solution {
+class Solution
+{
 public:
-    int longestCommonSubsequence(string& text1, string& text2){
+    int longestCommonSubsequence(string &text1, string &text2)
+    {
         string *t1, *t2;
+
         // < optimize for speed, > optimize for memory size
-        if (text1.size() < text1.size())
-        {
+        if (text1.size() < text1.size()) {
             t1 = &text1;
             t2 = &text2;
-        }
-        else
-        {
+        } else {
             t1 = &text2;
             t2 = &text1;
         }
+
         vector<int> dp(t2->size() + 1, 0);
-        for (int i = 0; i < t1->size(); i++)
-        {
+
+        for (int i = 0; i < t1->size(); i++) {
             int left = 0, me = 0;
-            for (int j = 0; j < t2->size(); j++)
-            {
-                if ((*t1)[i] == (*t2)[j])
-                {
+
+            for (int j = 0; j < t2->size(); j++) {
+                if ((*t1)[i] == (*t2)[j]) {
                     me = dp[j] + 1;
-                }
-                else
-                {
+                } else {
                     me = max(left, dp[j + 1]);
                 }
+
                 dp[j] = left;
                 left = me;
             }
+
             dp[t2->size()] = me;
         }
+
         return dp[t2->size()];
     }
 };

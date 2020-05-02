@@ -17,13 +17,15 @@ ImmutableListNode.getNext(): Return the next node.
 
  */
 
-class Solution {
+class Solution
+{
 public:
-    void printLinkedListInReverse(ImmutableListNode* head) {
-        if (NULL == head)
-        {
+    void printLinkedListInReverse(ImmutableListNode *head)
+    {
+        if (NULL == head) {
             return;
         }
+
         printLinkedListInReverse(head->getNext());
         head->printValue();
     }

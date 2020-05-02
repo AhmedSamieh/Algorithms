@@ -8,10 +8,12 @@
 
 using namespace std;
 
-class Genome {
+class Genome
+{
     unordered_map<string, char> codon_aminoacid;
 public:
-    Genome() {
+    Genome()
+    {
         codon_aminoacid.emplace("UUU", 'F');
         codon_aminoacid.emplace("UUC", 'F');
         codon_aminoacid.emplace("UUA", 'L');
@@ -92,51 +94,60 @@ public:
         codon_aminoacid.emplace("GGA", 'G');
         codon_aminoacid.emplace("GGG", 'G');
     }
-    string to_rna(string& dna) const {
+    string to_rna(string &dna) const
+    {
         string rna;
         rna.resize(dna.size());
         transform(dna.begin(), dna.end(), rna.begin(), ::toupper);
         replace(rna.begin(), rna.end(), 'T', 'U');
         return rna;
     }
-    vector<string> to_codon(string& rna) const {
+    vector<string> to_codon(string &rna) const
+    {
         vector<string> codon;
+
         if ((rna.size() % 3) == 0) {
             codon.reserve(rna.size() / 3);
+
             for (size_t i = 0; i < rna.size(); i += 3) {
                 codon.emplace_back(rna.substr(i, 3));
             }
         }
+
         return codon;
     }
-    string to_aminoacid(vector<string>& codon) const {
+    string to_aminoacid(vector<string> &codon) const
+    {
         string aminoacid;
         aminoacid.resize(codon.size());
-        transform(codon.begin(), codon.end(), aminoacid.begin(), [this](string& i) {
+        transform(codon.begin(), codon.end(), aminoacid.begin(), [this](string & i) {
             auto iter = codon_aminoacid.find(i);
             return (iter != codon_aminoacid.end()) ? iter->second : '*';
         });
         return aminoacid;
     }
-    vector<string> to_proteins(string& aminoacid) {
+    vector<string> to_proteins(string &aminoacid)
+    {
         vector<string> proteins;
         string protein = "";
-        for (auto& c : aminoacid) {
+
+        for (auto &c : aminoacid) {
             if (c == '*') {
                 if (!protein.empty()) {
                     proteins.emplace_back(protein);
                     protein.erase();
                 }
-            }
-            else {
+            } else {
                 protein.push_back(c);
             }
         }
+
         return proteins;
     }
 };
 
-int main(int, char **argv) {
+int main(int, char **argv)
+{
     Genome genome;
     ifstream ifs(argv[1]);
     string dna((istreambuf_iterator<char>(ifs)), istreambuf_iterator<char>());

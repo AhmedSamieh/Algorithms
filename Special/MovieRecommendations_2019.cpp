@@ -7,28 +7,34 @@
 
 using namespace std;
 
-class Movie {
+class Movie
+{
 private:
     int movieId;
     float rating;
-    vector<Movie*> similarMovies; // Similarity is bidirectional
+    vector<Movie *> similarMovies; // Similarity is bidirectional
 
 public:
-    Movie(int movieId, float rating) {
+    Movie(int movieId, float rating)
+    {
         this->movieId = movieId;
         this->rating = rating;
     }
-    int getId() {
+    int getId()
+    {
         return movieId;
     }
-    float getRating() {
+    float getRating()
+    {
         return rating;
     }
-    void addSimilarMovie(Movie* movie) {
+    void addSimilarMovie(Movie *movie)
+    {
         similarMovies.push_back(movie);
         movie->similarMovies.push_back(this);
     }
-    vector<Movie *>& getSimilarMovies() {
+    vector<Movie *> &getSimilarMovies()
+    {
         return similarMovies;
     }
     /*
@@ -50,17 +56,20 @@ public:
      *                      number of movies we want to return
      *     @return List of top rated similar movies
      */
-    static void getMovieRecommendations(Movie& movie, int numTopRatedSimilarMovies, vector<Movie *>& recommendedMovies) {
+    static void getMovieRecommendations(Movie &movie, int numTopRatedSimilarMovies, vector<Movie *> &recommendedMovies)
+    {
         // Implement me
         if (numTopRatedSimilarMovies > 0) {
             unordered_set<Movie *> visited; // Space complexity O(n)
             queue<Movie *>         qu;      // Space complexity O(n)
             qu.push(&movie);
             visited.emplace(&movie);
+
             do {
                 // Dequeue node from queue to search it's similarMovies
                 Movie *mv = qu.front();
                 qu.pop();
+
                 // scan all similarMovies, if the movie has not been visited mark it as visited and enqueue it
                 for (auto &rec_movie : mv->getSimilarMovies()) {
                     if (visited.find(rec_movie) == visited.end()) {
@@ -69,27 +78,26 @@ public:
                     }
                 }
             } while (!qu.empty());
-            if ((size_t) numTopRatedSimilarMovies < visited.size())
-            {
+
+            if ((size_t) numTopRatedSimilarMovies < visited.size()) {
                 // return numTopRatedSimilarMovies only
                 // sort the list by movie rating
                 // Worst case performance O(n log m) where n number of all movies, m number of top rated movies
                 recommendedMovies.resize(numTopRatedSimilarMovies);
                 partial_sort_copy(visited.begin(),
-                                visited.end(),
-                                recommendedMovies.begin(),
-                                recommendedMovies.end(),
-                                [](Movie *x, Movie *y) {
-                                    return (x->getRating() > y->getRating());
-                                });
-            }
-            else
-            {
+                                  visited.end(),
+                                  recommendedMovies.begin(),
+                                  recommendedMovies.end(),
+                [](Movie * x, Movie * y) {
+                    return (x->getRating() > y->getRating());
+                });
+            } else {
                 // get unsorted list of entire similarity network
                 // O(n)
                 recommendedMovies.assign(visited.begin(), visited.end());
             }
         }
+
         return;
     }
 };
@@ -103,11 +111,12 @@ int main(int argc, char **argv)
     m5.addSimilarMovie(&m4);
     Movie::getMovieRecommendations(m1, 2, output);
     cout << "Number of movies : " << output.size() << endl;
+
     for (vector<Movie *>::iterator iter = output.begin();
-            iter != output.end();
-            iter++)
-    {
+         iter != output.end();
+         iter++) {
         cout << "Movie ID : " << (*iter)->getId() << ", Movie Rating = " << (*iter)->getRating() << endl;
     }
+
     return 0;
 }

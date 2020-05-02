@@ -7,42 +7,35 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
-    TreeNode* getMostLeft(TreeNode* node)
+class Solution
+{
+    TreeNode *getMostLeft(TreeNode *node)
     {
-        if (NULL != node)
-        {
-            while (NULL != node->left)
-            {
+        if (NULL != node) {
+            while (NULL != node->left) {
                 node = node->left;
             }
         }
+
         return node;
     }
 public:
-    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
-        if (NULL == root || NULL == p)
-        {
+    TreeNode *inorderSuccessor(TreeNode *root, TreeNode *p)
+    {
+        if (NULL == root || NULL == p) {
             return NULL;
         }
-        if (root->val == p->val)
-        {
-            if (NULL != p->right && NULL != p->right->left)
-            {
+
+        if (root->val == p->val) {
+            if (NULL != p->right && NULL != p->right->left) {
                 return getMostLeft(p->right->left);
-            }
-            else
-            {
+            } else {
                 return p->right;
             }
-        }
-        else if (root->val < p->val)
-        {
+        } else if (root->val < p->val) {
             return inorderSuccessor(root->right, p);
-        }
-        else //if (root->val > p->val)
-        {
-            TreeNode* node = inorderSuccessor(root->left, p);
+        } else { //if (root->val > p->val)
+            TreeNode *node = inorderSuccessor(root->left, p);
             return NULL == node ? root : node;
         }
     }

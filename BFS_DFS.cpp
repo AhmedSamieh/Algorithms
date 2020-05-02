@@ -11,7 +11,7 @@ private:
     vector< list<int> > *adj;
 public:
     Graph();
-    Graph(Graph& obj);
+    Graph(Graph &obj);
     Graph(int size);
     void addEdge(int v1, int v2);
     void BFS(int s);
@@ -22,7 +22,7 @@ public:
 Graph::Graph()
 {
 }
-Graph::Graph(Graph& obj)
+Graph::Graph(Graph &obj)
 {
     adj = new vector< list<int> >(obj.adj->size());
     *adj = *obj.adj;
@@ -34,27 +34,27 @@ Graph::Graph(int size)
 void Graph::addEdge(int v1, int v2)
 {
     (*adj)[v1].push_back(v2);
- //   (*adj)[v2].push_back(v1);
+    //   (*adj)[v2].push_back(v1);
 }
 void Graph::BFS(int s)
 {
     vector<bool> visited(adj->size());
-    for(int i = 0; i < visited.size(); i++)
-    {
+
+    for (int i = 0; i < visited.size(); i++) {
         visited[i] = false;
     }
+
     list<int> queue;
     visited[s] = true;
     queue.push_back(s);
-    while(!queue.empty())
-    {
+
+    while (!queue.empty()) {
         s = queue.front();
         cout << s << " ";
         queue.pop_front();
-        for(list<int>::iterator iter = (*adj)[s].begin(); iter != (*adj)[s].end(); iter++)
-        {
-            if(!visited[*iter])
-            {
+
+        for (list<int>::iterator iter = (*adj)[s].begin(); iter != (*adj)[s].end(); iter++) {
+            if (!visited[*iter]) {
                 visited[*iter] = true;
                 queue.push_back(*iter);
             }
@@ -64,22 +64,22 @@ void Graph::BFS(int s)
 void Graph::DFS(int s)
 {
     vector<bool> visited(adj->size());
-    for(int i = 0; i < visited.size(); i++)
-    {
+
+    for (int i = 0; i < visited.size(); i++) {
         visited[i] = false;
     }
+
     list<int> stack;
     visited[s] = true;
     stack.push_front(s);
-    while(!stack.empty())
-    {
+
+    while (!stack.empty()) {
         s = stack.front();
         cout << s << " ";
         stack.pop_front();
-        for(list<int>::iterator iter = (*adj)[s].begin(); iter != (*adj)[s].end(); iter++)
-        {
-            if(!visited[*iter])
-            {
+
+        for (list<int>::iterator iter = (*adj)[s].begin(); iter != (*adj)[s].end(); iter++) {
+            if (!visited[*iter]) {
                 visited[*iter] = true;
                 stack.push_front(*iter);
             }
@@ -103,7 +103,7 @@ Graph::~Graph()
  *               / \   \
  *              4   5   6
  *             / \  |
- *            7  8  9 
+ *            7  8  9
  *
  *
  *

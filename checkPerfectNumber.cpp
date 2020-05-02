@@ -1,6 +1,8 @@
- class Solution {
+class Solution
+{
 public:
-    bool checkPerfectNumber(int num) {
+    bool checkPerfectNumber(int num)
+    {
         /*if (num > 1)
         {
             int sum = 1;

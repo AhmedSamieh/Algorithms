@@ -9,10 +9,12 @@ Write a function to delete a node (except the tail) in a singly linked list, giv
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution {
+class Solution
+{
 public:
-    void deleteNode(ListNode* node) {
-        ListNode* next_node = node->next;
+    void deleteNode(ListNode *node)
+    {
+        ListNode *next_node = node->next;
         node->val  = next_node->val;
         node->next = next_node->next;
         delete next_node;

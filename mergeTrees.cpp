@@ -7,17 +7,19 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+class Solution
+{
 public:
-    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
-        if (NULL == t2)
-        {
+    TreeNode *mergeTrees(TreeNode *t1, TreeNode *t2)
+    {
+        if (NULL == t2) {
             return t1;
         }
-        if (NULL == t1)
-        {
+
+        if (NULL == t1) {
             return t2;
         }
+
         t1->val += t2->val;
         t1->right = mergeTrees(t1->right, t2->right);
         t1->left = mergeTrees(t1->left, t2->left);

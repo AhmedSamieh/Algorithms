@@ -23,32 +23,32 @@ public:
         return v;
     }
 };*/
-class Solution {
+class Solution
+{
 public:
-    vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> inorderTraversal(TreeNode *root)
+    {
         vector<int> v;
-        unordered_set<TreeNode*> visited;
-        stack<TreeNode*> st;
+        unordered_set<TreeNode *> visited;
+        stack<TreeNode *> st;
         st.push(root);
-        while (!st.empty())
-        {
-            TreeNode* node = st.top();
+
+        while (!st.empty()) {
+            TreeNode *node = st.top();
             st.pop();
-            if (NULL != node)
-            {
-                if (visited.find(node) == visited.end())
-                {
+
+            if (NULL != node) {
+                if (visited.find(node) == visited.end()) {
                     st.push(node->right);
                     st.push(node);
                     st.push(node->left);
                     visited.insert(node);
-                }
-                else
-                {
+                } else {
                     v.push_back(node->val);
                 }
             }
         }
+
         return v;
     }
 };

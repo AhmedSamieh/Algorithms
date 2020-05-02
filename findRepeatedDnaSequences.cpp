@@ -14,40 +14,41 @@ public:
         int                                 number_of_sequences = s.size() - sequence_length + 1;
         vector<string>                      return_vector;
         int                                 sequence; // 4 values can be stored in 2 bits, 2 * 10 = 20 bits
-        unordered_map<int , int >           sequences_repeatation; // sequence, repeatation
-        unordered_map<int , int >::iterator iter;
-        for (int i = 0; i < number_of_sequences; i++)
-        {
+        unordered_map<int, int >           sequences_repeatation;  // sequence, repeatation
+        unordered_map<int, int >::iterator iter;
+
+        for (int i = 0; i < number_of_sequences; i++) {
             sequence = 0;
             string::iterator str_end = s.begin() + i + sequence_length;
-            for (string::iterator str_iter = s.begin() + i; str_iter != str_end; str_iter++)
-            {
-                switch (*str_iter)
-                {
+
+            for (string::iterator str_iter = s.begin() + i; str_iter != str_end; str_iter++) {
+                switch (*str_iter) {
                 case 'A':
                     sequence = (sequence << 2);
                     break;
+
                 case 'C':
                     sequence = (sequence << 2) | 1;
                     break;
+
                 case 'G':
                     sequence = (sequence << 2) | 2;
                     break;
+
                 case 'T':
                     sequence = (sequence << 2) | 3;
                     break;
                 }
             }
-            if ((iter = sequences_repeatation.find(sequence)) == sequences_repeatation.end())
-            {
+
+            if ((iter = sequences_repeatation.find(sequence)) == sequences_repeatation.end()) {
                 sequences_repeatation.emplace(sequence, 1);
-            }
-            else if (iter->second == 1)
-            {
+            } else if (iter->second == 1) {
                 return_vector.emplace_back(s.substr(i, sequence_length));
                 iter->second++;
             }
         }
+
         return return_vector;
     }
 };

@@ -6,26 +6,26 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution {
-    ListNode* reverseListHelper(ListNode* node, ListNode* prev)
+class Solution
+{
+    ListNode *reverseListHelper(ListNode *node, ListNode *prev)
     {
-        ListNode* next = node->next;
+        ListNode *next = node->next;
         node->next = prev;
-        if (NULL == next)
-        {
+
+        if (NULL == next) {
             return node;
-        }
-        else
-        {
+        } else {
             return reverseListHelper(next, node);
         }
     }
 public:
-    ListNode* reverseList(ListNode* head) {
-        if (NULL == head)
-        {
+    ListNode *reverseList(ListNode *head)
+    {
+        if (NULL == head) {
             return NULL;
         }
+
         return reverseListHelper(head, NULL);
     }
 };

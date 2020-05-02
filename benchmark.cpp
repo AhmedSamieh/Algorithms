@@ -9,7 +9,7 @@ using namespace std::chrono;
 /*
   Usage:
   {
-     // some code 
+     // some code
     {
         benchmark performance;
         // the code to measure performance

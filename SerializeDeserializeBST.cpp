@@ -7,18 +7,17 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Codec {
-    void serialize(TreeNode* node, string &s) {
-        if (!s.empty())
-        {
+class Codec
+{
+    void serialize(TreeNode *node, string &s)
+    {
+        if (!s.empty()) {
             s += ",";
         }
-        if (NULL == node)
-        {
+
+        if (NULL == node) {
             s += "null";
-        }
-        else
-        {
+        } else {
             s += to_string(node->val);
             serialize(node->right, s);
             serialize(node->left, s);
@@ -29,20 +28,19 @@ class Codec {
         vector <string> tokens;
         stringstream ss(s);
         string token;
-        while(getline(ss, token, ','))
-        {
+
+        while (getline(ss, token, ',')) {
             tokens.push_back(token);
         }
+
         return tokens;
     }
-    TreeNode* deserialize(vector<string> &tokens, int& index) {
-        if (tokens[index] == "null")
-        {
+    TreeNode *deserialize(vector<string> &tokens, int &index)
+    {
+        if (tokens[index] == "null") {
             return NULL;
-        }
-        else
-        {
-            TreeNode* node = new TreeNode(stoi(tokens[index]));
+        } else {
+            TreeNode *node = new TreeNode(stoi(tokens[index]));
             ++index;
             node->right = deserialize(tokens, index);
             ++index;
@@ -53,7 +51,8 @@ class Codec {
 public:
 
     // Encodes a tree to a single string.
-    string serialize(TreeNode* root) {
+    string serialize(TreeNode *root)
+    {
         string s;
         serialize(root, s);
         //cout << s << endl;
@@ -61,7 +60,8 @@ public:
     }
 
     // Decodes your encoded data to tree.
-    TreeNode* deserialize(string data) {
+    TreeNode *deserialize(string data)
+    {
         vector<string> tokens = string_tokenizer(data);
         int index = 0;
         return deserialize(tokens, index);

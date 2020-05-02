@@ -40,27 +40,25 @@ public:
     }
 };*/
 
-class Solution {
+class Solution
+{
 public:
-    int lengthOfLIS(vector<int>& nums) {
-        if (nums.size() > 0)
-        {
+    int lengthOfLIS(vector<int> &nums)
+    {
+        if (nums.size() > 0) {
             vector<int> LIS(nums.size(), 1);
-            for (int i = 1; i < nums.size(); ++i)
-            {
-                for (int j = 0; j < i; ++j)
-                {
+
+            for (int i = 1; i < nums.size(); ++i) {
+                for (int j = 0; j < i; ++j) {
                     // get LIS for every element with all prev elements
-                    if (nums[i] > nums[j])
-                    {
+                    if (nums[i] > nums[j]) {
                         LIS[i] = max(LIS[i], LIS[j] + 1);
                     }
                 }
             }
+
             return *max_element(LIS.begin(), LIS.end());
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }

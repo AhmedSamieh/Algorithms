@@ -15,36 +15,24 @@ string select_container(uint32_t order,
                         bool bothDirectionsIterate)
 {
     string best_option;
-    if (LAST_IN_FIRST_OUT  == order)
-    {
+
+    if (LAST_IN_FIRST_OUT  == order) {
         best_option = "stack";
-    }
-    else if (FIRST_IN_FIRST_OUT == order)
-    {
+    } else if (FIRST_IN_FIRST_OUT == order) {
         best_option = "queue";
-    }
-    else if (LARGEST_ELEMENT_FIRST_OUT == order)
-    {
+    } else if (LARGEST_ELEMENT_FIRST_OUT == order) {
         best_option = "priority_queue";
-    }
-    else if (sortByKey || searchByKey)
-    {
-        if (duplicatesIsAllowed)
-        {
+    } else if (sortByKey || searchByKey) {
+        if (duplicatesIsAllowed) {
             best_option = storeKeySeparateToValue ? "multimap" : "multiset";
-        }
-        else
-        {
+        } else {
             best_option = storeKeySeparateToValue ? "map" : "set";
         }
-    }
-    else if (middleInsertErase || mergeRequired)
-    {
+    } else if (middleInsertErase || mergeRequired) {
         best_option = bothDirectionsIterate ? "list" : "forward_list";
-    }
-    else
-    {
+    } else {
         best_option = frontInsertErase ? "deque" : "vector";
     }
+
     return best_option;
 }

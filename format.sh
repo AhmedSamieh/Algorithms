@@ -1,0 +1,1 @@
+astyle "*.c,*.cpp,*.h"

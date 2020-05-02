@@ -67,32 +67,30 @@ public:
         // we will save visited nodes in this set, in order to visit each node once
         set<Movie *> visited; // Worst case space complexity O(n)
         Movie *node;
+
         // start
-        if (numTopRatedSimilarMovies > 0)
-        {
+        if (numTopRatedSimilarMovies > 0) {
             queue.push_back(&movie);
             visited.insert(&movie);
+
             // Worst case performance O(|V|+|E|) where V is number of movies, and E is number of similarity
-            do
-            {
+            do {
                 // Dequeue node from queue to search it's similarMovies
                 node = queue.front();
                 queue.pop_front();
+
                 // scan all similarMovies, if the movie has not been visited mark it as visited and enqueue it
                 for (vector<Movie *>::iterator iter = node->getSimilarMovies().begin();
-                        iter != node->getSimilarMovies().end();
-                        iter++)
-                {
-                    if (visited.find(*iter) == visited.end())
-                    {
+                     iter != node->getSimilarMovies().end();
+                     iter++) {
+                    if (visited.find(*iter) == visited.end()) {
                         queue.push_back(*iter);
                         visited.insert(*iter);
                     }
                 }
-            }
-            while (!queue.empty());
-            if ((size_t) numTopRatedSimilarMovies < visited.size())
-            {
+            } while (!queue.empty());
+
+            if ((size_t) numTopRatedSimilarMovies < visited.size()) {
                 // return numTopRatedSimilarMovies only
                 // sort the list by movie rating
                 // Worst case performance O(n log m) where n number of all movies, m number of top rated movies
@@ -102,14 +100,13 @@ public:
                                   recommendedMovies.begin(),
                                   recommendedMovies.end(),
                                   rating_compare);
-            }
-            else
-            {
+            } else {
                 // get unsorted list of entire similarity network
                 // O(n)
                 recommendedMovies.assign(visited.begin(), visited.end());
             }
         }
+
         return;
     }
 };
@@ -127,11 +124,12 @@ int main(int argc, char **argv)
     m5.addSimilarMovie(&m4);
     Movie::getMovieRecommendations(m1, 2, output);
     cout << "Number of movies : " << output.size() << endl;
+
     for (vector<Movie *>::iterator iter = output.begin();
-            iter != output.end();
-            iter++)
-    {
+         iter != output.end();
+         iter++) {
         cout << "Movie ID : " << (*iter)->getId() << ", Movie Rating = " << (*iter)->getRating() << endl;
     }
+
     return 0;
 }

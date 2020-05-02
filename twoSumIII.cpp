@@ -1,31 +1,36 @@
-class TwoSum {
+class TwoSum
+{
     unordered_map<int, int> ds; // number, count
 public:
     /** Initialize your data structure here. */
-    TwoSum() {
-        
+    TwoSum()
+    {
+
     }
-    
+
     /** Add the number to an internal data structure.. */
-    void add(int number) {
+    void add(int number)
+    {
         ds[number]++;
     }
-    
+
     /** Find if there exists any pair of numbers which sum is equal to the value. */
-    bool find(int value) {
+    bool find(int value)
+    {
         for (auto &i : ds) {
             int num = value - i.first;
+
             if (num == i.first) {
                 if (i.second > 1) {
                     return true;
                 }
-            }
-            else {
+            } else {
                 if (ds.find(num) != ds.end()) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 };

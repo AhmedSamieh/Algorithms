@@ -32,18 +32,22 @@ public:
     }
 };*/
 
-class Solution {
+class Solution
+{
 public:
-    int countLetters(string S) {
+    int countLetters(string S)
+    {
         int num = 0;
         int i = 0, j = 0;
-        while (i < S.size())
-        {
+
+        while (i < S.size()) {
             for (j = i; j < S.size() && S[i] == S[j]; ++j);
+
             int n = j - i;
             num += (n * (n + 1)) >> 1;
             i = j;
         }
+
         return num;
     }
 };

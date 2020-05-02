@@ -15,26 +15,32 @@
 
 */
 
-class Solution {
+class Solution
+{
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-        
+    ListNode *removeNthFromEnd(ListNode *head, int n)
+    {
+
         int count = 0;
-        for (ListNode* iter = head; NULL != iter; ++count, iter = iter->next);
+
+        for (ListNode *iter = head; NULL != iter; ++count, iter = iter->next);
+
         if (count == n) {
-            ListNode* new_head = head->next;
+            ListNode *new_head = head->next;
             delete head;
             return new_head;
-        }
-        else if (count > n) {
+        } else if (count > n) {
             count = count - n;
             int i;
-            ListNode** iter;
+            ListNode **iter;
+
             for (iter = &head, i = 0; i < count; ++i, iter = &(*iter)->next);
-            ListNode* node_to_delete = *iter;
+
+            ListNode *node_to_delete = *iter;
             *iter = (*iter)->next;
             delete node_to_delete;
         }
+
         return head;
     }
 };

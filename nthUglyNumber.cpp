@@ -1,4 +1,5 @@
-class Solution {
+class Solution
+{
 public:
     /*int nthUglyNumber(int n) {
         set<unsigned long> s;
@@ -24,25 +25,31 @@ public:
         }
         return 1;
     }*/
-    int nthUglyNumber(int n) {
+    int nthUglyNumber(int n)
+    {
         vector<int> ans(n);
         ans[0] = 1;
         int i2 = 0, i3 = 0, i5 = 0;
+
         for (int i = 1; i < n; ++i) {
             int ugly2 = ans[i2] * 2;
             int ugly3 = ans[i3] * 3;
             int ugly5 = ans[i5] * 5;
             ans[i] = min(ugly2, min(ugly3, ugly5));
+
             if (ans[i] == ugly2) {
                 ++i2;
             }
+
             if (ans[i] == ugly3) {
                 ++i3;
             }
+
             if (ans[i] == ugly5) {
                 ++i5;
             }
         }
+
         return ans[n - 1];
     }
 };

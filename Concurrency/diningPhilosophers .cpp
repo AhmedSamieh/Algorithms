@@ -1,9 +1,11 @@
 #include <semaphore.h>
 
-class DiningPhilosophers {
+class DiningPhilosophers
+{
     mutex fork[5];
 public:
-    DiningPhilosophers() {
+    DiningPhilosophers()
+    {
     }
 
     void wantsToEat(int philosopher,
@@ -11,9 +13,9 @@ public:
                     function<void()> pickRightFork,
                     function<void()> eat,
                     function<void()> putLeftFork,
-                    function<void()> putRightFork) {
-        if ((philosopher & 1) == 1)
-        {
+                    function<void()> putRightFork)
+    {
+        if ((philosopher & 1) == 1) {
             unique_lock<mutex> right_guard(fork[philosopher]);
             unique_lock<mutex> left_guard(fork[(philosopher + 1) % 5]);
             pickRightFork();
@@ -21,9 +23,7 @@ public:
             eat();
             putRightFork();
             putLeftFork();
-        }
-        else
-        {
+        } else {
             unique_lock<mutex> left_guard(fork[(philosopher + 1) % 5]);
             unique_lock<mutex> right_guard(fork[philosopher]);
             pickLeftFork();

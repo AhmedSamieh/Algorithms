@@ -2,24 +2,30 @@
 using namespace std;
 
 // Input string is all lower case [a-z] characters only.
-bool HasDuplicates(const char* input) {
-  uint32_t visited = 0;
-  if (NULL != input) {
-    while ('\0' != *input) {
-      uint32_t flag = 1 << (*input++ - 'a');
-      if (visited & flag) {
-        return true;
-      }
-      visited |= flag;
+bool HasDuplicates(const char *input)
+{
+    uint32_t visited = 0;
+
+    if (NULL != input) {
+        while ('\0' != *input) {
+            uint32_t flag = 1 << (*input++ - 'a');
+
+            if (visited & flag) {
+                return true;
+            }
+
+            visited |= flag;
+        }
     }
-  }
-  return false;
+
+    return false;
 }
 
-int main() {
-  cout << (!HasDuplicates("abcdef") ? "PASS":"FAIL") << endl;
-  cout << (HasDuplicates("abcdefnhtfzr") ? "PASS":"FAIL") << endl;
-  return 0;
+int main()
+{
+    cout << (!HasDuplicates("abcdef") ? "PASS" : "FAIL") << endl;
+    cout << (HasDuplicates("abcdefnhtfzr") ? "PASS" : "FAIL") << endl;
+    return 0;
 }
 
 /*bool HasDuplicates(const char* input) {
@@ -33,7 +39,7 @@ int main() {
       visited[index] = true;
     }
   }
-  return false; 
+  return false;
 }*/
 /*bool HasDuplicates(const char* input) {
   unordered_set<char> visited;

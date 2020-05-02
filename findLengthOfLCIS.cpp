@@ -1,26 +1,23 @@
-class Solution {
+class Solution
+{
 public:
-    int findLengthOfLCIS(vector<int>& nums) {
-        if (nums.size() > 0)
-        {
+    int findLengthOfLCIS(vector<int> &nums)
+    {
+        if (nums.size() > 0) {
             int longest = 0;
             int count = 0;
-            for (int i = 1; i < nums.size(); ++i)
-            {
-                if (nums[i] > nums[i - 1])
-                {
+
+            for (int i = 1; i < nums.size(); ++i) {
+                if (nums[i] > nums[i - 1]) {
                     ++count;
-                }
-                else
-                {
+                } else {
                     longest = max(longest, count);
                     count = 0;
                 }
             }
+
             return 1 + max(longest, count);
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }

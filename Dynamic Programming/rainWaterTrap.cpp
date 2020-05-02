@@ -1,24 +1,27 @@
-class Solution {
+class Solution
+{
 public:
-    int trap(vector<int>& height) {
+    int trap(vector<int> &height)
+    {
         int dots = 0;
-        if (height.size() > 0)
-        {
+
+        if (height.size() > 0) {
             vector<int> dp_left_edge(height);
             vector<int> dp_right_edge(height);
-            for (int i = 1; i < height.size(); ++i)
-            {
+
+            for (int i = 1; i < height.size(); ++i) {
                 dp_left_edge[i] = max(height[i - 1], dp_left_edge[i - 1]);
             }
-            for (int i = height.size() - 2; i >= 0; --i)
-            {
+
+            for (int i = height.size() - 2; i >= 0; --i) {
                 dp_right_edge[i] = max(height[i + 1], dp_right_edge[i + 1]);
             }
-            for (int i = height.size() - 2; i > 0; --i)
-            {
+
+            for (int i = height.size() - 2; i > 0; --i) {
                 dots += max(min(dp_left_edge[i], dp_right_edge[i]), height[i]) - height[i];
             }
         }
+
         return dots;
     }
 };

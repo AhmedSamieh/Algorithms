@@ -15,27 +15,29 @@ public:
     }
 };
 */
-class Solution {
+class Solution
+{
 public:
-    Node* copyRandomList(Node* head) {
-        unordered_map<Node*, Node*> m; // key=oldPointer, val=newPointer
+    Node *copyRandomList(Node *head)
+    {
+        unordered_map<Node *, Node *> m; // key=oldPointer, val=newPointer
         ios_base::sync_with_stdio(false);
         cin.tie(nullptr);
         m.emplace(NULL, NULL);
-        for (Node* scanner = head; scanner != NULL; scanner = scanner->next)
-        {
-            Node* node = new Node();
+
+        for (Node *scanner = head; scanner != NULL; scanner = scanner->next) {
+            Node *node = new Node();
             m.emplace(scanner, node);
         }
-        for (auto const &i : m)
-        {
-            if (i.first != NULL)
-            {
+
+        for (auto const &i : m) {
+            if (i.first != NULL) {
                 i.second->val = i.first->val;
                 i.second->next = m[i.first->next];
                 i.second->random = m[i.first->random];
             }
         }
+
         return m[head];
     }
 };

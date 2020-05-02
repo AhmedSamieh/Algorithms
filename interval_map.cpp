@@ -4,37 +4,41 @@
 #include <limits>
 
 template<class K, class V>
-class interval_map {
+class interval_map
+{
     friend void IntervalMapTest();
 
 private:
-    std::map<K,V> m_map;
+    std::map<K, V> m_map;
 
 public:
     // constructor associates whole range of K with val by inserting (K_min, val)
     // into the map
-    interval_map( V const& val) {
-        m_map.insert(m_map.begin(),std::make_pair(std::numeric_limits<K>::lowest(),val));
+    interval_map(V const &val)
+    {
+        m_map.insert(m_map.begin(), std::make_pair(std::numeric_limits<K>::lowest(), val));
     }
 
-    // Assign value val to interval [keyBegin, keyEnd). 
-    // Overwrite previous values in this interval. 
+    // Assign value val to interval [keyBegin, keyEnd).
+    // Overwrite previous values in this interval.
     // Do not change values outside this interval.
-    // Conforming to the C++ Standard Library conventions, the interval 
+    // Conforming to the C++ Standard Library conventions, the interval
     // includes keyBegin, but excludes keyEnd.
-    // If !( keyBegin < keyEnd ), this designates an empty interval, 
+    // If !( keyBegin < keyEnd ), this designates an empty interval,
     // and assign must do nothing.
-    void assign( K const& keyBegin, K const& keyEnd, const V& val ) {
+    void assign(K const &keyBegin, K const &keyEnd, const V &val)
+    {
         // INSERT YOUR SOLUTION HERE
-        typename std::map<K,V>::iterator start_iter;
-        typename std::map<K,V>::iterator end_iter;
-        typename std::map<K,V>::iterator pre_start_iter;
-        typename std::map<K,V>::iterator post_end_iter;
+        typename std::map<K, V>::iterator start_iter;
+        typename std::map<K, V>::iterator end_iter;
+        typename std::map<K, V>::iterator pre_start_iter;
+        typename std::map<K, V>::iterator post_end_iter;
         V start_v, end_v;
-        if (keyBegin >= keyEnd)
-        {
+
+        if (keyBegin >= keyEnd) {
             return;
         }
+
         start_iter = m_map.lower_bound(keyBegin);
         pre_start_iter = start_iter;
         pre_start_iter--;
@@ -43,23 +47,24 @@ public:
         end_iter = post_end_iter;
         end_iter--;
         end_v   = end_iter->second;
-        if (std::distance(m_map.begin(), post_end_iter) > std::distance(m_map.begin(), start_iter))
-        {
-            
+
+        if (std::distance(m_map.begin(), post_end_iter) > std::distance(m_map.begin(), start_iter)) {
+
             m_map.erase(start_iter, post_end_iter);
         }
-        if (val != start_v)
-        {
+
+        if (val != start_v) {
             m_map.insert(pre_start_iter, std::make_pair(keyBegin, val));
         }
-        if (val != end_v)
-        {
+
+        if (val != end_v) {
             m_map.insert(post_end_iter, std::make_pair(keyEnd, end_v));
         }
     }
     // look-up of the value associated with key
-    V const& operator[]( K const& key ) const {
-        return ( --m_map.upper_bound(key) )->second;
+    V const &operator[](K const &key) const
+    {
+        return (--m_map.upper_bound(key))->second;
     }
 };
 
@@ -71,8 +76,7 @@ public:
 void IntervalMapTest()
 {
     interval_map<int, char> test_map('Z');
-    struct table_tag
-    {
+    struct table_tag {
         unsigned int from;
         unsigned int to;
         char         value;
@@ -80,22 +84,24 @@ void IntervalMapTest()
 
     for (std::map<int, char>::iterator it = test_map.m_map.begin();
          it != test_map.m_map.end();
-         it++)
-    {
+         it++) {
         std::cout << "output key : " << it->first << " , val : " << it->second << std::endl;
     }
+
     std::cout << std::endl;
-    for (int i = 0; i < sizeof(table)/sizeof(struct table_tag); i++)
-    {
+
+    for (int i = 0; i < sizeof(table) / sizeof(struct table_tag); i++) {
         test_map.assign(table[i].from, table[i].to, table[i].value);
+
         for (std::map<int, char>::iterator it = test_map.m_map.begin();
              it != test_map.m_map.end();
-             it++)
-        {
+             it++) {
             std::cout << "output key : " << it->first << " , val : " << it->second << std::endl;
         }
+
         std::cout << std::endl;
     }
+
     /*test_map.assign(2, 8, 'A');
     for (std::map<int, char>::iterator it = test_map.m_map.begin();
          it != test_map.m_map.end();
@@ -123,13 +129,14 @@ void IntervalMapTest()
     test_map.assign(13, 37, 'A');*/
     for (std::map<int, char>::iterator it = test_map.m_map.begin();
          it != test_map.m_map.end();
-         it++)
-    {
+         it++) {
         std::cout << "output key : " << it->first << " , val : " << it->second << std::endl;
     }
+
     std::cout << std::endl;
 }
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[])
+{
     IntervalMapTest();
     return 0;
 }

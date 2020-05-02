@@ -6,18 +6,17 @@
 //   ListNode *next;
 // };
 //
-ListNode<int> * removeKFromList(ListNode<int> * l, int k) {
+ListNode<int> *removeKFromList(ListNode<int> *l, int k)
+{
     ListNode<int> **item = &l;
-    while (*item)
-    {
-        if ((*item)->value == k)
-        {
+
+    while (*item) {
+        if ((*item)->value == k) {
             (*item) = (*item)->next;
-        }
-        else
-        {
+        } else {
             item = &(*item)->next;
         }
     }
+
     return l;
 }
